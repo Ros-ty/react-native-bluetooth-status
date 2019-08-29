@@ -36,7 +36,14 @@ class BluetoothManager {
             return this.bluetoothState !== undefined
           })
           .done(() => {
-            resolve(this.bluetoothState === 'on');
+            let bluetoothOff = false;
+            let bluetoothOffState = ["unknown", "off", "unsupported", "unauthorized", "resetting"];
+            bluetoothOffState.map((status) => {
+              if(this.bluetoothState.bluetoothStatus === status || this.bluetoothState === status) {
+                bluetoothOff = true;
+              }
+            });
+            resolve(!bluetoothOff);
           })
       }
     });
